@@ -86,39 +86,44 @@
 <body>
     <main name="main" id="main" class="main">
         <h1>
-        <?php
-    require 'connection.php';
-    if($_POST){
-        if(empty($_POST['login']) || empty($_POST['password'])){
-            echo "Preencha todos os campos!";
-        }else{
-            $login = $_POST['login'];
-            $password = $_POST['password'];
-            $sql = "SELECT * FROM user WHERE login = :login AND password = :password";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':login', $login);
-            $stmt->bindParam(':password', $password);
-            if($stmt->execute()){
-                if($stmt->rowCount() > 0){ 
-                    $fields = $stmt->fetch(PDO::FETCH_ASSOC);
-                    // var_dump($fields);
-                    session_start();
-                    $_SESSION['name'] = $fields['name'];
-                    $_SESSION['nivel'] = $fields['nivel'];                     
-                    $_SESSION['login'] = $login;           
-                    $_SESSION['login-effect'] = true;
-                    // var_dump($_SESSION['login-effect']);
-                    header('Location: home.php');
-                }else{
-                    // Falta a parte de redirecionamento 
-                    echo "Erro ao efetuar login, tente novamente!";
+            <?php
+                require 'connection.php';
+                if($_POST){
+                    if(empty($_POST['login']) || empty($_POST['name']) || empty($_POST['password'])){
+                        echo "Preencha todos os campos!";
+                    }else{
+                        $login = $_POST['login'];
+                        $name = $_POST['name'];
+                        $password = $_POST['password'];
+                        $nivel = $_POST['nivel'];
+
+                        $sql = "SELECT * FROM user WHERE login = :login";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->bindParam(':login', $login);
+                        if($stmt->execute()){
+                            if($stmt->rowCount() > 0){ 
+                                echo "Login já utilizado! Tente outro.";
+                            }else{
+                                $sql = "INSERT INTO user VALUES (null, :login, :name, :password, :nivel)";
+                                $stmt = $pdo->prepare($sql);
+                                $stmt->bindParam(':login', $login);
+                                $stmt->bindParam('name', $name);
+                                $stmt->bindParam('password', $password);
+                                $stmt->bindParam('nivel', $nivel);
+                                if($stmt->execute()){
+                                    echo "Cadastro realizado com sucesso!";
+                                    echo '<meta http-equiv="refresh" content="5; url=cadastro.php">';
+
+                                }else{
+                                    echo "Erro ao realizar cadastro!";
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-        }
-    }
-?>
+            ?>
         </h1>
-        <a href="./login.html">Voltar</a>
+        <a href="./cadastro.php">Voltar</a>
     </main>
 </body>
 </html>

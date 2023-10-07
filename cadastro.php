@@ -1,3 +1,12 @@
+<?php
+    session_start();
+
+    include('verifyAdm.php');
+
+    if(!isset($_SESSION['login-effect'])){
+        header('Location: ./');
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,7 +25,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         :root{
 
             /* colors */
@@ -157,6 +165,27 @@
                 background-color 0.5s
             ;
         }
+        main[name='main'] form select{
+            cursor: pointer;
+
+            text-align: center;
+            width: 20rem;
+
+            font-family: var(--montserrat);
+            font-size: 18px;
+            color: var(--text-color);
+
+            background: transparent;
+
+            padding-bottom: 5px;
+
+            outline: none;
+            border: 0px;
+            border-bottom: 1px solid var(--background-a-btn);
+        }
+        main[name='main'] form option{
+            color: black;
+        }
         main[name='main'] form button:hover{
             background-color: rgba(255, 255, 255, 0.915);
             color: var(--primary-color);
@@ -168,19 +197,26 @@
 <body>
     <header name="header-page" id="header-page" class="header-page">
         <img src="./assets/icons/fantasmao.webp" alt="Fantasmao do apenas um show" width="100px">
-        <a href="./">Página inicial</a>
-        <a href="./login.php">Login</a>
-        <a href="https://github.com/furPedroRibeiro/apenasumshow_aula_session">Github</a>
-        <a href="https://www.linkedin.com/in/pedro-ribeiro-abaa0b293/">Linkedin</a>
+        <a href="./home.php">Página inicial</a>
+        <a href="./cadastro.php">Cadastro</a>
+        <a href="https://github.com/furPedroRibeiro/apenasumshow_aula_session" target="_blank">Github</a>
+        <a href="https://www.linkedin.com/in/pedro-ribeiro-abaa0b293/" target="_blank">Linkedin</a>
     </header>
     <main name="main" id="main" class="main">
-        <h1>Faça seu login</h1>
-        <form action="logar.php" method="post">
-            <label for="name">Login</label>
+        <h1>Faça o cadastro</h1>
+        <form action="cadastrar.php" method="post">
+            <label for="login">Login</label>
             <input type="text" name="login" id="login">
+            <label for="name">Nome</label>
+            <input type="text" name="name" id="name">
             <label for="password">Senha:</label>
             <input type="password" name="password" id="password">
-            <button type="submit">Entrar</button>
+            <label for="nivel">Selecione o nível do usuário:</label>
+            <select name="nivel" id="nivel">
+                <option value="1">Nível 1</option>
+                <option value="2">Nível 2</option>
+            </select>
+            <button type="submit">Cadastrar</button>
         </form>
     </main>
     <footer name="footer-page" id="footer-page" class="footer-page"></footer>

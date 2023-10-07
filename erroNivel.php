@@ -85,40 +85,8 @@
 </head>
 <body>
     <main name="main" id="main" class="main">
-        <h1>
-        <?php
-    require 'connection.php';
-    if($_POST){
-        if(empty($_POST['login']) || empty($_POST['password'])){
-            echo "Preencha todos os campos!";
-        }else{
-            $login = $_POST['login'];
-            $password = $_POST['password'];
-            $sql = "SELECT * FROM user WHERE login = :login AND password = :password";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':login', $login);
-            $stmt->bindParam(':password', $password);
-            if($stmt->execute()){
-                if($stmt->rowCount() > 0){ 
-                    $fields = $stmt->fetch(PDO::FETCH_ASSOC);
-                    // var_dump($fields);
-                    session_start();
-                    $_SESSION['name'] = $fields['name'];
-                    $_SESSION['nivel'] = $fields['nivel'];                     
-                    $_SESSION['login'] = $login;           
-                    $_SESSION['login-effect'] = true;
-                    // var_dump($_SESSION['login-effect']);
-                    header('Location: home.php');
-                }else{
-                    // Falta a parte de redirecionamento 
-                    echo "Erro ao efetuar login, tente novamente!";
-                }
-            }
-        }
-    }
-?>
-        </h1>
-        <a href="./login.html">Voltar</a>
+        <h1>Você não possui permissão para ver esta página, F ;-;</h1>
+        <a href="./home.php">Voltar</a>
     </main>
 </body>
 </html>

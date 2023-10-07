@@ -1,4 +1,15 @@
 
+<?php
+    session_start();
+    if($_GET){
+        if(isset($_GET['logout'])){
+            unset($_SESSION['login-effect']);
+        }
+    }
+    if(!isset($_SESSION['login-effect'])){
+        header('Location: ./');
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AKA o brabo</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="homeStyle.css">
     <!-- LINK FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,18 +26,18 @@
 <body>
     <header name="header-page" id="header-page" class="header-page">
         <img src="./assets/icons/fantasmao.webp" alt="Fantasmao do apenas um show" width="100px">
-        <a href="./">Página inicial</a>
-        <a href="./login.html">Login</a>
+        <a href="./home.php">Página inicial</a>
+        <a href="./cadastro.php">Cadastrar</a>
         <a href="https://github.com/furPedroRibeiro/apenasumshow_aula_session" target="_blank">Github</a>
         <a href="https://www.linkedin.com/in/pedro-ribeiro-abaa0b293/" target="_blank">Linkedin</a>
     </header>
     <main name="main" id="main" class="main">
-        <h1>Apenas uma session</h1>
-        <p>Seja bem vindo, aqui você encontra um projeto feito durante a aula de PW para aprender session, fique a vontade!!!</p>
+        <h1>Apenas uma session - PW III</h1>
+        <p>Seja bem vindo novamente, agora que você está logado vamos ver se você tem um nível alto ou não, hahahhaha</p>
         <div class="options">
-            <a href="login.html" class="a-btn-main">Login</a>
+            <a href="cadastro.php" class="a-btn-main">Cadastrar</a>
             <a href="https://github.com/furPedroRibeiro/apenasumshow_aula_session" class="a-btn-main" target="_blank">Github</a>
-            <a href="https://google.com" class="a-btn-main" target="_blank">Sair</a>
+            <a href="?logout=true" class="a-btn-main">Sair</a>
         </div>
     </main>
     <footer name="footer-page" id="footer-page" class="footer-page"></footer>
